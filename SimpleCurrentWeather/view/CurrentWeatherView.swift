@@ -11,11 +11,10 @@ struct CurrentWeatherView: View {
     
     @State private var viewModel: CurrentWeatherViewModel = CurrentWeatherViewModel()
     
-    var displayName: String = ""
+    var city: City
     
     init(city: City) {
-        self.displayName = city.displayName
-        viewModel.getWeatherResponse(latitude: city.latitude, longitude: city.longitude)
+        self.city = city
     }
     
     var body: some View {
@@ -35,7 +34,7 @@ struct CurrentWeatherView: View {
                 }
             case .success:
                 VStack(alignment: .leading, spacing: 16.0) {
-                    Text(displayName)
+                    Text(city.displayName)
                         .font(.system(size: 32.0))
                         .fontWeight(.semibold)
                         .foregroundStyle(.blue)
@@ -104,6 +103,10 @@ struct CurrentWeatherView: View {
                     }
                 }
             }
+        }
+        .padding()
+        .onAppear {
+            viewModel.getWeatherResponse(latitude: city.latitude, longitude: city.longitude)
         }
     }
 }
