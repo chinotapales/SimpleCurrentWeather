@@ -105,7 +105,7 @@ struct CurrentWeatherView: View {
             }
         }
         .padding()
-        .onAppear {
+        .task {
             viewModel.getWeatherResponse(latitude: city.latitude, longitude: city.longitude)
         }
     }
